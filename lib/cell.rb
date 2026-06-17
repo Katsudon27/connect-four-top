@@ -8,6 +8,6 @@ class Cell
   end
 
   def add_piece(player)
-    @symbol = player.symbol.colorize(player.colour)
+    @symbol = player.symbol
   end
 end

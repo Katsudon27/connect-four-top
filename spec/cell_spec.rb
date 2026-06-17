@@ -10,7 +10,7 @@ describe Cell do
       let(:player1) { instance_double(Player) }
 
       before do
-        allow(player1).to receive_messages(symbol: "\u25CF", colour: :red)
+        allow(player1).to receive(:symbol).and_return("\u25CF".colorize(:red))
       end
 
       it "updates its symbol to be same as the player" do

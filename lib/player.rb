@@ -1,10 +1,10 @@
+require "colorize"
 class Player
   attr_reader :symbol, :colour
 
   def initialize(name, colour)
     @name = name
-    @symbol = "\u25CF"
-    @colour = colour
+    @symbol = "\u25CF".colorize(colour)
   end
 
   def choose_column
