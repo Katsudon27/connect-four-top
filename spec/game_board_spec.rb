@@ -25,7 +25,7 @@ describe GameBoard do
       let(:cell2_col2) { board[4][1] }
 
       before do
-        allow(cell1_col2).to receive(:empty).and_return(false)
+        allow(cell1_col2).to receive(:empty?).and_return(false)
         allow(cell2_col2).to receive(:add_piece)
       end
 
