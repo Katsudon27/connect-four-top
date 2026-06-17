@@ -1,4 +1,6 @@
 class Player
+  attr_reader :symbol, :colour
+
   def initialize(name, colour)
     @name = name
     @symbol = "\u25CF"
