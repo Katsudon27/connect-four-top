@@ -35,4 +35,24 @@ describe GameBoard do
       end
     end
   end
+
+  describe "#cells_empty?" do
+    context "when there are still empty cells left on the board" do
+      it "returns true" do
+        expect(game_board).to be_cells_empty
+      end
+    end
+
+    context "when there are no empty cells left on the board" do
+      before do
+        board.each do |row|
+          row.each { |cell| allow(cell).to receive(:empty?).and_return(false) }
+        end
+      end
+
+      it "returns false" do
+        expect(game_board).not_to be_cells_empty
+      end
+    end
+  end
 end
