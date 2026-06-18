@@ -19,68 +19,29 @@ class GameController
   end
 
   def player_win?
-    horizontal_win? || vertical_win? || asc_diagonal_win? || desc_diagonal_win?
+    board = @game_board.board
+    row, col = @game_board.latest_move
+    directions = [[0, 1], [1, 0], [1, 1], [1, -1], [0, -1], [-1, 0], [-1, -1], [-1, 1]]
+    count = 1
+    directions.each do |direction|
+      row_delta, col_delta = direction
+      row_temp = row + row_delta
+      col_temp = col + col_delta
+
+      while within_array_boundary?(row_temp, col_temp) && board[row_temp][col_temp].symbol == @current_player.symbol
+        count += 1
+        row_temp += row_delta
+        col_temp += col_delta
+      end
+
+      return true if count >= 4
+    end
+    count >= 4
   end
 
   private
 
-  def horizontal_win?
-    board = @game_board.board
-    board.each_with_index do |row, row_idx|
-      row.each_with_index do |cell, col_idx|
-        break if col_idx > 4
-
-        if cell.symbol == @current_player.symbol && board[row_idx][col_idx + 1].symbol == @current_player.symbol && board[row_idx][col_idx + 2].symbol == @current_player.symbol && board[row_idx][col_idx + 3].symbol == @current_player.symbol
-          return true
-        end
-      end
-    end
-    false
-  end
-
-  def vertical_win?
-    board = @game_board.board
-    board.each_with_index do |row, row_idx|
-      break if row_idx > 2
-
-      row.each_with_index do |cell, col_idx|
-        if cell.symbol == @current_player.symbol && board[row_idx + 1][col_idx].symbol == @current_player.symbol && board[row_idx + 2][col_idx].symbol == @current_player.symbol && board[row_idx + 3][col_idx].symbol == @current_player.symbol
-          return true
-        end
-      end
-    end
-    false
-  end
-
-  def asc_diagonal_win?
-    board = @game_board.board
-    board.each_with_index do |row, row_idx|
-      next if row_idx < 3
-
-      row.each_with_index do |cell, col_idx|
-        break if col_idx > 4
-
-        if cell.symbol == @current_player.symbol && board[row_idx - 1][col_idx + 1].symbol == @current_player.symbol && board[row_idx - 2][col_idx + 2].symbol == @current_player.symbol && board[row_idx - 3][col_idx + 3].symbol == @current_player.symbol
-          return true
-        end
-      end
-    end
-    false
-  end
-
-  def desc_diagonal_win?
-    board = @game_board.board
-    board.each_with_index do |row, row_idx|
-      next if row_idx < 3
-
-      row.each_with_index do |cell, col_idx|
-        next if col_idx < 3
-
-        if cell.symbol == @current_player.symbol && board[row_idx - 1][col_idx - 1].symbol == @current_player.symbol && board[row_idx - 2][col_idx - 2].symbol == @current_player.symbol && board[row_idx - 3][col_idx - 3].symbol == @current_player.symbol
-          return true
-        end
-      end
-    end
-    false
+  def within_array_boundary?(row, col)
+    row >= 0 && row < 6 && col >= 0 && col < 7
   end
 end

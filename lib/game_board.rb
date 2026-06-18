@@ -1,7 +1,8 @@
 require_relative "cell"
+require "matrix"
 
 class GameBoard
-  attr_reader :board
+  attr_reader :board, :latest_move
 
   def initialize
     @board = Array.new(6) { Array.new(7) { Cell.new } }
@@ -9,10 +10,11 @@ class GameBoard
 
   def add_piece(col_num, player)
     @board.transpose[col_num - 1].reverse.each do |cell|
-      if cell.empty?
-        cell.add_piece(player)
-        break
-      end
+      next unless cell.empty?
+
+      cell.add_piece(player)
+      store_latest_move(cell)
+      break
     end
   end
 
@@ -27,5 +29,11 @@ class GameBoard
       end
     end
     false
+  end
+
+  private
+
+  def store_latest_move(cell)
+    @latest_move = Matrix[*@board].index(cell)
   end
 end
