@@ -36,10 +36,10 @@ describe GameBoard do
     end
   end
 
-  describe "#cells_empty?" do
-    context "when there are still empty cells left on the board" do
-      it "returns true" do
-        expect(game_board).to be_cells_empty
+  describe "#available columns" do
+    context "when all columns on the board still have empty cells" do
+      it "returns an array with all column numbers" do
+        expect(game_board.available_columns).to eq([1, 2, 3, 4, 5, 6, 7])
       end
     end
 
@@ -50,8 +50,8 @@ describe GameBoard do
         end
       end
 
-      it "returns false" do
-        expect(game_board).not_to be_cells_empty
+      it "returns an empty array" do
+        expect(game_board.available_columns).to eq([])
       end
     end
   end

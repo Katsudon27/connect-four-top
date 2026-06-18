@@ -15,7 +15,7 @@ class GameController
   end
 
   def draw_game?
-    @game_board.cells_empty?
+    @game_board.available_columns.empty?
   end
 
   def player_win?

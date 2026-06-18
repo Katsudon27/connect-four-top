@@ -21,13 +21,24 @@ describe GameController do
   end
 
   describe "#draw_game?" do
-    before do
-      allow(game_board).to receive(:cells_empty?)
+    context "when there are still empty cells on the board" do
+      before do
+        allow(game_board).to receive(:available_columns).and_return([1, 2])
+      end
+
+      it "returns false" do
+        expect(game_controller).not_to be_draw_game
+      end
     end
 
-    it "sends #cells_empty? to game board" do
-      game_controller.draw_game?
-      expect(game_board).to have_received(:cells_empty?)
+    context "when there are no empty cells left on the board" do
+      before do
+        allow(game_board).to receive(:available_columns).and_return([])
+      end
+
+      it "returns an empty array" do
+        expect(game_controller).to be_draw_game
+      end
     end
   end
 

@@ -22,13 +22,12 @@ class GameBoard
     @board.each { |row| puts row.map(&:symbol).join("  ") }
   end
 
-  def cells_empty?
-    @board.each do |row|
-      row.each do |cell|
-        return true if cell.empty?
-      end
+  def available_columns
+    available_columns = []
+    @board[0].each_with_index do |cell, col_index|
+      available_columns << col_index + 1 if cell.empty?
     end
-    false
+    available_columns
   end
 
   private
