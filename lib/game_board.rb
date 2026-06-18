@@ -19,7 +19,10 @@ class GameBoard
   end
 
   def display
+    puts "-------------------------------"
+    puts "1  2  3  4  5  6  7"
     @board.each { |row| puts row.map(&:symbol).join("  ") }
+    puts "-------------------------------"
   end
 
   def available_columns
