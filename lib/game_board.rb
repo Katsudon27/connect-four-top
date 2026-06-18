@@ -1,6 +1,8 @@
 require_relative "cell"
 
 class GameBoard
+  attr_reader :board
+
   def initialize
     @board = Array.new(6) { Array.new(7) { Cell.new } }
   end
