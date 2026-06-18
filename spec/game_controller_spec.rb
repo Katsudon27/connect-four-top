@@ -131,4 +131,18 @@ describe GameController do
       expect(first_player).to have_received(:choose_column).once
     end
   end
+
+  describe "#add_piece" do
+    context "when the current player places his piece in column 1" do
+      before do
+        allow(game_board).to receive(:add_piece)
+      end
+
+      it "sends add_piece" do
+        player_move = "1"
+        game_controller.add_piece(player_move)
+        expect(game_board).to have_received(:add_piece)
+      end
+    end
+  end
 end

@@ -18,6 +18,10 @@ class GameController
     @game_board.available_columns.empty?
   end
 
+  def add_piece(col_num)
+    @game_board.add_piece(col_num, @current_player)
+  end
+
   def player_win?
     board = @game_board.board
     row, col = @game_board.latest_move
