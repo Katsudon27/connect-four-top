@@ -13,4 +13,8 @@ class GameBoard
       end
     end
   end
+
+  def display
+    @board.each { |row| puts row.map(&:symbol).join("  ") }
+  end
 end
