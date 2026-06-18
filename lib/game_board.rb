@@ -17,4 +17,13 @@ class GameBoard
   def display
     @board.each { |row| puts row.map(&:symbol).join("  ") }
   end
+
+  def cells_empty?
+    @board.each do |row|
+      row.each do |cell|
+        return true if cell.empty?
+      end
+    end
+    false
+  end
 end
