@@ -9,8 +9,7 @@ describe GameController do
   let(:first_player) { instance_double(Player) }
   let(:second_player) { instance_double(Player) }
   let(:game_board) { instance_double(GameBoard) }
-  let(:cell) { instance_double(Cell) }
-  let(:created_board) { Array.new(6) { Array.new(7) { cell } } }
+  let(:created_board) { Array.new(6) { Array.new(7) { instance_double(Cell) } } }
 
   describe "#switch_turn" do
     context "when the current player is player 1" do
@@ -36,6 +35,9 @@ describe GameController do
     before do
       allow(first_player).to receive(:symbol).and_return("\u25CF".colorize(:red))
       allow(game_board).to receive(:board).and_return(created_board)
+      created_board.each do |row|
+        row.each { |cell| allow(cell).to receive(:symbol).and_return("") }
+      end
     end
 
     context "when a player places four pieces horizontally" do
