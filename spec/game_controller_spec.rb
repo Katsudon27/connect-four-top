@@ -17,4 +17,15 @@ describe GameController do
       end
     end
   end
+
+  describe "#draw_game?" do
+    before do
+      allow(game_board).to receive(:cells_empty?)
+    end
+
+    it "sends #cells_empty? to game board" do
+      game_controller.draw_game?
+      expect(game_board).to have_received(:cells_empty?)
+    end
+  end
 end

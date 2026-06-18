@@ -13,4 +13,8 @@ class GameController
   def switch_turn
     @current_player = @current_player == @player1 ? @player2 : @player1
   end
+
+  def draw_game?
+    @game_board.cells_empty?
+  end
 end
