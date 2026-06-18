@@ -109,4 +109,15 @@ describe GameController do
       end
     end
   end
+
+  describe "#prompt_player_input" do
+    before do
+      allow(first_player).to receive(:choose_column)
+    end
+
+    it "sends make_move to the current player" do
+      game_controller.prompt_player_input
+      expect(first_player).to have_received(:choose_column).once
+    end
+  end
 end

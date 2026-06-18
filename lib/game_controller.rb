@@ -39,6 +39,10 @@ class GameController
     count >= 4
   end
 
+  def prompt_player_input
+    @current_player.choose_column
+  end
+
   private
 
   def within_array_boundary?(row, col)
