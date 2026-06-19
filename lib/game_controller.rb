@@ -3,6 +3,8 @@ require_relative "player"
 
 # Controls the flow of the Tic Tac Toe game
 class GameController
+  attr_reader :current_player
+
   def initialize(player1, player2, game_board)
     @player1 = player1
     @player2 = player2
@@ -23,24 +25,17 @@ class GameController
   end
 
   def player_win?
-    board = @game_board.board
-    row, col = @game_board.latest_move
-    directions = [[0, 1], [1, 0], [1, 1], [1, -1], [0, -1], [-1, 0], [-1, -1], [-1, 1]]
-    count = 1
+    directions = [[0, 1], [1, 0], [1, 1], [1, -1]]
+
     directions.each do |direction|
+      count = 1
       row_delta, col_delta = direction
-      row_temp = row + row_delta
-      col_temp = col + col_delta
-
-      while within_array_boundary?(row_temp, col_temp) && board[row_temp][col_temp].symbol == @current_player.symbol
-        count += 1
-        row_temp += row_delta
-        col_temp += col_delta
-      end
-
+      count = check_direction(count, row_delta, col_delta)
+      count = check_direction(count, -row_delta, -col_delta) # check for opposite direction
       return true if count >= 4
     end
-    count >= 4
+
+    false
   end
 
   def prompt_player_input
@@ -51,5 +46,20 @@ class GameController
 
   def within_array_boundary?(row, col)
     row >= 0 && row < 6 && col >= 0 && col < 7
+  end
+
+  def check_direction(count, row_delta, col_delta)
+    board = @game_board.board
+    row, col = @game_board.latest_move
+    row_temp = row + row_delta
+    col_temp = col + col_delta
+
+    while within_array_boundary?(row_temp, col_temp) && board[row_temp][col_temp].symbol == @current_player.symbol
+      count += 1
+      row_temp += row_delta
+      col_temp += col_delta
+    end
+
+    count
   end
 end
