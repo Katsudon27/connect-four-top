@@ -1,4 +1,6 @@
 require "colorize"
+
+# A class that represents the player for the Connect Four game
 class Player
   attr_reader :name, :symbol, :colour
 

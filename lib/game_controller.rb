@@ -1,7 +1,7 @@
 require_relative "game_board"
 require_relative "player"
 
-# Controls the flow of the Tic Tac Toe game
+# A class that controls the flow of the Connect Four game
 class GameController
   attr_reader :current_player
 

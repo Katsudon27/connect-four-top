@@ -1,5 +1,6 @@
 require "colorize"
 
+# A class that represents a cell on the game board for the Connect Four game
 class Cell
   attr_reader :symbol, :empty
 

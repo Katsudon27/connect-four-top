@@ -1,6 +1,7 @@
 require_relative "cell"
 require "matrix"
 
+# A class that represents the game board for the Connect Four game
 class GameBoard
   attr_reader :board, :latest_move
 
